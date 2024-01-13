@@ -106,4 +106,4 @@ export class ProxyHandlerBuilder {
 
 export const proxy = new ProxyHandlerBuilder()
 
-export const makeProxyHandler = proxy.makeProxyHandler
+export const makeProxyHandler = proxy.makeProxyHandler.bind(proxy)
