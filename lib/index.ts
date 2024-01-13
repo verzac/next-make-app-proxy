@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { AppRouteHandlerFn } from './types'
 import { log } from './log'
+import { ProxyError } from './errors'
 
 function augmentWithParams(
   path: string,
@@ -18,11 +19,11 @@ function augmentWithParams(
         // If it exists, replace with the corresponding value
         return '/' + param
       } else {
-        throw new Error('non string param: ' + JSON.stringify(param))
+        throw new ProxyError('non string param: ' + JSON.stringify(param))
       }
     } else {
       // If not, keep the original pattern
-      throw new Error(`proxy: missing paramName=${paramName}`)
+      throw new ProxyError(`proxy: missing paramName=${paramName}`)
     }
   })
 
@@ -32,7 +33,7 @@ function augmentWithParams(
 export interface ProxyHandlerOpts {
   withReqBody?: boolean
   customMethod?: string
-  headers?: (req: NextRequest) => HeadersInit
+  headers?: (req: NextRequest) => Promise<HeadersInit> | HeadersInit
 }
 
 export class ProxyHandlerBuilder {
@@ -58,7 +59,7 @@ export class ProxyHandlerBuilder {
       const method = customMethod ?? req.method
       const requestInit: RequestInit = {
         headers: {
-          ...headers?.(req),
+          ...(await headers?.(req)),
         },
         method,
       }
