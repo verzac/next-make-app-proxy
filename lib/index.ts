@@ -29,7 +29,7 @@ function augmentWithParams(
   return replacedString
 }
 
-interface ProxyHandlerOpts {
+export interface ProxyHandlerOpts {
   withReqBody?: boolean
   customMethod?: string
   headers?: (req: NextRequest) => HeadersInit
