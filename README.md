@@ -85,6 +85,7 @@ export const GET = makeProxyHandler('https://yourapi.com/my-api/:id')
 // you can also override each individual option
 export const POST = makeProxyHandler('https://yourapi.com/my-api', {
   withReqBody: true,
+  hocWrappers: [],
 })
 ```
 
