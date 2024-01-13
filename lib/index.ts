@@ -36,7 +36,7 @@ interface ProxyHandlerOpts {
 }
 
 export class ProxyHandlerBuilder {
-  private optsDefault: ProxyHandlerOpts = {}
+  private readonly optsDefault: ProxyHandlerOpts = {}
 
   constructor(...inputOptsArgs: Partial<ProxyHandlerOpts>[]) {
     for (const inputOpts of inputOptsArgs) {
@@ -45,7 +45,7 @@ export class ProxyHandlerBuilder {
   }
 
   withOpts(inputOpts: Partial<ProxyHandlerOpts> = {}): ProxyHandlerBuilder {
-    return new ProxyHandlerBuilder(this.optsDefault)
+    return new ProxyHandlerBuilder(this.optsDefault, inputOpts)
   }
 
   makeProxyHandler(
