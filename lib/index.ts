@@ -34,6 +34,7 @@ export interface ProxyHandlerOpts {
   withReqBody?: boolean
   customMethod?: string
   headers?: (req: NextRequest) => Promise<HeadersInit> | HeadersInit
+  hocWrappers?: Array<(inputFn: AppRouteHandlerFn) => AppRouteHandlerFn>
 }
 
 export class ProxyHandlerBuilder {
@@ -45,8 +46,14 @@ export class ProxyHandlerBuilder {
     }
   }
 
-  withOpts(inputOpts: Partial<ProxyHandlerOpts> = {}): ProxyHandlerBuilder {
-    return new ProxyHandlerBuilder(this.optsDefault, inputOpts)
+  withOpts(
+    inputOpts: Partial<ProxyHandlerOpts> = {}
+  ): Readonly<ProxyHandlerBuilder> {
+    return Object.freeze(new ProxyHandlerBuilder(this.optsDefault, inputOpts))
+  }
+
+  get opts() {
+    return { ...this.optsDefault }
   }
 
   makeProxyHandler(
@@ -54,8 +61,11 @@ export class ProxyHandlerBuilder {
     optsArg: ProxyHandlerOpts = {}
   ): AppRouteHandlerFn {
     const opts = Object.assign(this.optsDefault, optsArg)
-    const { withReqBody, customMethod, headers } = opts
-    return async function proxiedHandler(req, { params }) {
+    const { withReqBody, customMethod, headers, hocWrappers = [] } = opts
+    let proxiedHandler: AppRouteHandlerFn = async function proxiedHandler(
+      req,
+      { params }
+    ) {
       const method = customMethod ?? req.method
       const requestInit: RequestInit = {
         headers: {
@@ -87,6 +97,10 @@ export class ProxyHandlerBuilder {
       }
       return NextResponse.json(await result.json(), { status: result.status })
     }
+    hocWrappers.forEach((hocWrapper) => {
+      proxiedHandler = hocWrapper(proxiedHandler)
+    })
+    return proxiedHandler
   }
 }
 
