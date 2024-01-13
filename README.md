@@ -90,4 +90,6 @@ export const POST = makeProxyHandler('https://yourapi.com/my-api', {
 
 # Contributing? Need a Feature?
 
-Just chuck me a PR or an Issue and I'll review it. No need for templates (for now).
+Just chuck me a PR or an Issue in the repo and I'll review it. No need for templates (for now).
+
+[New Issue](https://github.com/verzac/next-make-app-proxy/issues/new)

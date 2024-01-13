@@ -6,6 +6,14 @@
   "author": "Benjamin Tanone",
   "license": "MIT",
   "private": false,
+  "keywords": [
+    "auth0",
+    "next.js",
+    "react",
+    "oidc",
+    "authentication",
+    "vercel"
+  ],
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "prepublishOnly": "echo Building... && npm run build"
