@@ -1,13 +1,14 @@
 {
   "name": "next-make-app-proxy",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "[WIP] Library to create a NextJS App Router handler that automatically forwards your request.",
   "main": "dist/index.js",
   "author": "Benjamin Tanone",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist/ && tsc"
+    "build": "rm -rf dist/ && tsc",
+    "prepublishOnly": "echo Publishing... && npm run build"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
