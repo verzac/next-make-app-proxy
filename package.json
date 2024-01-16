@@ -1,6 +1,6 @@
 {
   "name": "next-make-app-proxy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create a NextJS App Router Route Handler that forwards your requests to a separate backend server, with the option to inject contextual information to your requests (e.g. your users' access token).",
   "main": "dist/index.js",
   "author": "Benjamin Tanone",
