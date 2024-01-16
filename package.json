@@ -6,13 +6,20 @@
   "author": "Benjamin Tanone",
   "license": "MIT",
   "private": false,
+  "repository": "github:verzac/next-make-app-proxy",
+  "bugs": {
+    "url": "https://github.com/verzac/next-make-app-proxy/issues",
+    "email": "little.big.apps.studio@gmail.com"
+  },
   "keywords": [
     "auth0",
     "next.js",
     "react",
     "oidc",
     "authentication",
-    "vercel"
+    "vercel",
+    "proxy",
+    "app router"
   ],
   "scripts": {
     "build": "rm -rf dist/ && tsc",
